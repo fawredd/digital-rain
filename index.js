@@ -36,6 +36,8 @@ const draw = () => {
         }
 		rainDrops[i]++;
 	}
+window.requestAnimationFrame(draw);
 };
 
-setInterval(draw, 30);
+//setInterval(draw, 30);
+draw();
