@@ -19,6 +19,10 @@ for( let x = 0; x < columns; x++ ) {
 	rainDrops[x] = 1;
 }
 
+let msPrev = window.performance.now()
+const fps = 60
+const msPerFrame = 1000 / fps
+let frames = 0
 const draw = () => {
 	context.fillStyle = 'rgba(0, 0, 0, 0.05)';
 	context.fillRect(0, 0, canvas.width, canvas.height);
@@ -36,8 +40,17 @@ const draw = () => {
         }
 		rainDrops[i]++;
 	}
-window.requestAnimationFrame(draw);
+  window.requestAnimationFrame(draw);
+  const msNow = window.performance.now()
+  const msPassed = msNow - msPrev
+  if (msPassed < msPerFrame) return
+  
+  const excessTime = msPassed % msPerFrame
+  msPrev = msNow - excessTime
+  frames++
 };
-
+setInterval(() => {
+  console.log(frames)
+}, 1000)
 //setInterval(draw, 30);
 draw();
